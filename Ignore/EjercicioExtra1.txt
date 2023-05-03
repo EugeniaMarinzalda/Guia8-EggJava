@@ -1,0 +1,131 @@
+Main ------------------------------------
+ public static void main(String[] args) {
+        ServicioRaices r = new ServicioRaices();
+        Raices r1 = r.llenarRaices();
+        r.calcularRaices(r1);
+    }
+
+Objeto(Entidad)----------------------------
+public class Raices {
+    private double a,b,c;
+
+    public Raices(double a, double b, double c) {
+        this.a = a;
+        this.b = b;
+        this.c = c;
+    }
+
+    public Raices() {
+    }
+
+    public double getA() {
+        return a;
+    }
+
+    public void setA(double a) {
+        this.a = a;
+    }
+
+    public double getB() {
+        return b;
+    }
+
+    public void setB(double b) {
+        this.b = b;
+    }
+
+    public double getC() {
+        return c;
+    }
+
+    public void setC(double c) {
+        this.c = c;
+    }
+    
+    
+}
+
+clase Servicio --------------------------
+public class ServicioRaices {
+
+    private Scanner sc = new Scanner(System.in).useDelimiter("\n");
+
+    public Raices llenarRaices() {
+        System.out.println("Ingrese los valores de a, b y c");
+        double a = sc.nextDouble();
+        double b = sc.nextDouble();
+        double c = sc.nextDouble();
+
+        return new Raices(a, b, c);
+    }
+
+    //(b^2)-4*a*c
+    public double getDiscriminante(Raices raiz) {
+        double discriminante = Math.pow(raiz.getB(), 2) - 4 * raiz.getA() * raiz.getC();
+        return discriminante;
+    }
+
+    //Método tieneRaices(): devuelve un booleano indicando si tiene dos
+//soluciones, para que esto ocurra, el discriminante debe ser mayor o
+//igual que 0.
+    public boolean tieneRaizes(Raices raiz) {
+        double discriminante = Math.pow(raiz.getB(), 2) - 4 * raiz.getA() * raiz.getC();
+        if (discriminante >= 0) {
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+
+    public boolean tieneRaiz(Raices raiz) {
+        double discriminante = Math.pow(raiz.getB(), 2) - 4 * raiz.getA() * raiz.getC();
+        if (discriminante == 0) {
+            return true;
+
+        } else {
+            return false;
+        }
+    }
+
+    public void obtenerRaices(Raices raiz) {
+        if (tieneRaizes(raiz) == true) {
+            System.out.println(getDiscriminante(raiz));
+        }
+    }
+
+    public void obtenerRaiz(Raices raiz) {
+        if (tieneRaiz(raiz) == true) {
+            System.out.println(getDiscriminante(raiz));
+
+        }
+    }
+
+    /*Método calcular(): esté método llamará tieneRaices() y a tieneRaiz(),
+y mostrará por pantalla las posibles soluciones que tiene nuestra
+ecuación con los métodos obtenerRaices() u obtenerRaiz(), según lo
+que devuelvan nuestros métodos y en caso de no existir solución, se
+mostrará un mensaje.*/
+    //Fórmula ecuación 2o grado: (-b±√((b^2)-(4*a*c)))/(2*a) Solo varía
+//el signo delante de -b
+    public void calcularRaices(Raices raiz) {
+        if (tieneRaizes(raiz) == true) {
+            System.out.println("El valor del discriminante es: " + getDiscriminante(raiz));
+            System.out.println("Se procede a utilizar la formula general de Bascara");
+
+            double x1 = (-raiz.getB() - Math.sqrt(getDiscriminante(raiz))) / (2 * raiz.getA());
+            System.out.println("La raiz 1 es : " + x1);
+            double x2 = (-raiz.getB() + Math.sqrt(getDiscriminante(raiz))) / (2 * raiz.getA());
+            System.out.println("La raiz 2 es: " + x2);
+        } else {
+            System.out.println("No tiene raices");
+        }
+        if (tieneRaiz(raiz) == true) {
+            System.out.println("El valor del discriminante es: " + getDiscriminante(raiz));
+            double res3 = (-raiz.getB() + -Math.sqrt(getDiscriminante(raiz))) / (2 * raiz.getA());
+            System.out.println("El valor de la raiz es: " + res3);
+        } else {
+            System.out.println("No existe una solución porque no tiene una unica raiz");
+        }
+    }
+}

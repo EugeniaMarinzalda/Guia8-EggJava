@@ -1,0 +1,101 @@
+Main----------------------------------------
+Scanner leer = new Scanner(System.in);
+        AscensorServicio prueba = new AscensorServicio();
+        Ascensor p1 = prueba.crearAscensor();
+        int op;
+        do {
+            
+            System.out.println("Menú");
+            System.out.println("1.Subir");
+            System.out.println("2.Bajar");
+            System.out.println("3.Ir a");
+            System.out.println("4.Cerrar puerta");
+            op =leer.nextInt();
+          switch (op) {
+            case 1:
+                prueba.subir(p1);
+                break;
+            case 2:
+                prueba.bajar(p1);
+                break;
+            case 3:                                
+                prueba.irA(p1);
+                break;
+            case 4:
+                System.out.println("Gracias por usar el ascensor");
+                break;
+            default:
+                System.out.println("opcion incorrecta");;
+        }  
+        } while (op!=4);
+
+Clase ASCENSOR---------------------------------------------------------
+private int pisoActual;
+    private int maximoPisos;
+
+    public Ascensor() {
+    }
+
+    public Ascensor(int pisoActual, int maximoPisos) {
+        this.pisoActual = pisoActual;
+        this.maximoPisos = maximoPisos;
+    }
+
+    public int getPisoActual() {
+        return pisoActual;
+    }
+
+    public void setPisoActual(int pisoActual) {
+        this.pisoActual = pisoActual;
+    }
+
+    public int getMaximoPisos() {
+        return maximoPisos;
+    }
+
+    public void setMaximoPisos(int maximoPisos) {
+        this.maximoPisos = maximoPisos;
+    }
+
+Clase SERVICIO------------------------------------
+ Scanner leer = new Scanner(System.in);
+    public Ascensor crearAscensor(){
+        System.out.println("Ingrese el piso actual");
+        int pA = leer.nextInt();
+        System.out.println("Ingrese el piso maximo");
+        int pM = leer.nextInt();
+        return new Ascensor(pA,pM);
+    }
+    
+    public void subir(Ascensor n1){
+        int suma = n1.getPisoActual()+1;        
+        if (suma <= n1.getMaximoPisos()) {
+            n1.setPisoActual(suma);
+            System.out.println("Usted se encuentra en el piso " + n1.getPisoActual());
+        }else{
+            System.out.println("Llegaste al piso maximo, no se puede seguir subiendo");
+        }
+        
+    }
+    
+    public void bajar(Ascensor n1){
+        int resta = n1.getPisoActual()-1;
+        if (resta < 0 ) {
+            System.out.println("Esta en planta baja, no se puede seguir bajando");
+        }else{
+            n1.setPisoActual(resta);
+            System.out.println("Ahora se encuentra en el piso " + n1.getPisoActual());
+        }
+        
+    }
+    
+    public void irA(Ascensor n1){
+        System.out.println("A que piso desea ir?");
+        int piso = leer.nextInt();
+        if (piso < n1.getMaximoPisos() && piso >= 0) {
+            System.out.println("Se esta desplazando al piso " + piso);
+            n1.setPisoActual(piso);
+        }else{
+            System.out.println("El piso que desea ir no esta disponible");
+        }
+    }

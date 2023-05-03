@@ -1,0 +1,96 @@
+Main---------------------------------------
+public class DigitoVerificador {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        ServicioNif nif = new ServicioNif();
+        nif.mostrar();
+        
+        ServicioNif nif1 = new ServicioNif();
+        nif1.mostrar();
+    }
+    
+}
+
+NIF(entidad)-------------------------------------
+public class NIF {
+    private long DNI;
+    private char letra;
+
+    public NIF(long DNI, char letra) {
+        this.DNI = DNI;
+        this.letra = letra;
+    }
+
+    public NIF() {
+    }
+
+    public long getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(long DNI) {
+        this.DNI = DNI;
+    }
+
+    public char getLetra() {
+        return letra;
+    }
+
+    public void setLetra(char letra) {
+        this.letra = letra;
+    }
+    
+    
+}
+
+ServicioNif-----------------------------------
+public class ServicioNif {
+    private Scanner sc = new Scanner(System.in).useDelimiter("\n");
+    int DNI = llenarDNI();
+    char L = calcularLetra();
+    
+    public int llenarDNI(){
+        System.out.println("Ingrese su DNI");
+        int dni = sc.nextInt();
+        return dni;
+    }
+    
+    public char calcularLetra(){
+        char [] letras = new char[23]; 
+        letras[0]='T';
+        letras[1]='R';
+        letras[2]='W';
+        letras[3]='A';
+        letras[4]='G';
+        letras[5]='M';
+        letras[6]='Y';
+        letras[7]='F';
+        letras[8]='P';
+        letras[9]='D';
+        letras[10]='X';
+        letras[11]='B';
+        letras[12]='N';
+        letras[13]='J';
+        letras[14]='Z';
+        letras[15]='S';
+        letras[16]='Q';
+        letras[17]='V';
+        letras[18]='H';
+        letras[19]='L';
+        letras[20]='C';
+        letras[21]='K';
+        letras[22]='E';
+        
+        int resto = DNI % 23;
+        
+        return letras[resto];
+        }
+    
+    public void mostrar(){
+        System.out.println("Se muestra su DNI y el NIF");
+        System.out.println(DNI + "-" + L);
+    }
+    }
